@@ -36,6 +36,39 @@ class SentenceController extends Controller
         return redirect()->route('index');
     }
 
+    public function update($id)
+    {
+        $sentence = $this->indexById($id);
+        if($sentence)
+        {
+            return(view('wit.update', compact('sentence')));
+        }
+    }
+
+    //Atualiza Sentença
+    public function modify(Request $request)
+    {
+
+        $sentence = Sentence::find($request->id);
+        $sentence->update([
+            'title'     => $request->input('title'),
+            'intent'    => $request->input('intent'),
+            'entities'  => $request->input('entities')
+        ]);
+
+        $request->session()
+            ->flash("mensagem", "Sentença {$sentence->id} - {$sentence->title} atualizada com sucesso");
+
+        return redirect()->route('list_sentences');
+    }
+
+    //Lista uma sentença
+    public function indexById($id)
+    {
+        $sentence = Sentence::find($id);
+        return $sentence;
+    }
+
     public function list()
     {
         $listSentences = Sentence::query()->orderBy('title')->get();
