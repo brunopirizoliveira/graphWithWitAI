@@ -23,28 +23,28 @@ function callWitAi($query, $auth){
     curl_close($ch);
     $result = json_decode($response,true);
     $entities = $result['entities'];
-
+    echo json_encode($entities);
     // verifyEntities($entities);
 
-    $entidadesCadastradas = array('intent', 'task');
+    // $entidadesCadastradas = array('intent', 'task');
 
-    foreach($entidadesCadastradas as $entidadeCadastrada)
-    {
-        foreach($entities as $entity)
-        {
-            foreach($entity as $ent)
-            {
-                print_r($ent['value'].PHP_EOL);
-                print_r($entidadeCadastrada.PHP_EOL);
+    // foreach($entidadesCadastradas as $entidadeCadastrada)
+    // {
+    //     foreach($entities as $entity)
+    //     {
+    //         foreach($entity as $ent)
+    //         {
+    //             print_r($ent['value'].PHP_EOL);
+    //             print_r($entidadeCadastrada.PHP_EOL);
 
-                // if(strtoupper($entidadeCadastrada) == strtoupper($ent['value']))
-                // {
-                //     print_r($ent['value']);
-                // }
-            }
+    //             // if(strtoupper($entidadeCadastrada) == strtoupper($ent['value']))
+    //             // {
+    //             //     print_r($ent['value']);
+    //             // }
+    //         }
             
-        }
-    }
+    //     }
+    // }
 
 }
 

@@ -33,7 +33,7 @@ class SentenceController extends Controller
             DB::commit();
             DB::rollback();
 
-        return redirect()->route('index');
+        return redirect()->route('list_sentences');
     }
 
     public function update($id)
@@ -48,7 +48,6 @@ class SentenceController extends Controller
     //Atualiza Sentença
     public function modify(Request $request)
     {
-
         $sentence = Sentence::find($request->id);
         $sentence->update([
             'title'     => $request->input('title'),
@@ -58,6 +57,16 @@ class SentenceController extends Controller
 
         $request->session()
             ->flash("mensagem", "Sentença {$sentence->id} - {$sentence->title} atualizada com sucesso");
+
+        return redirect()->route('list_sentences');
+    }
+
+    //Remover uma sentença
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        Sentence::destroy($id);
+        DB::commit();
 
         return redirect()->route('list_sentences');
     }
